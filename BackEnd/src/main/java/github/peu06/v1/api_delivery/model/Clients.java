@@ -20,8 +20,6 @@ import java.util.List;
 @Setter
 public class Clients extends Users{
 
-    private RoleUsers role = RoleUsers.CLIENT;
-
     @NotBlank
     @Size(max = 11)
     @Column(nullable = false, length = 11)

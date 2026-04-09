@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/Clients")
+@RequestMapping("/clients")
 public class ClientsController {
 
     private final ClientsService service;

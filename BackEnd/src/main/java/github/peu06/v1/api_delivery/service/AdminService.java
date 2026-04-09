@@ -3,7 +3,9 @@ package github.peu06.v1.api_delivery.service;
 import github.peu06.v1.api_delivery.model.Admin;
 import github.peu06.v1.api_delivery.model.RoleUsers;
 import github.peu06.v1.api_delivery.repository.AdminRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AdminService {
@@ -14,6 +16,9 @@ public class AdminService {
     }
 
     public Admin create(Admin admin){
+        if (repository.existsByEmail(admin.getEmail())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado");
+        }
         admin.setRole(RoleUsers.ADMIN);
         return repository.save(admin);
     }

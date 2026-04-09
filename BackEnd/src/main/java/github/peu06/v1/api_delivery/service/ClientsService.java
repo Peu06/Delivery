@@ -3,7 +3,9 @@ package github.peu06.v1.api_delivery.service;
 import github.peu06.v1.api_delivery.model.Clients;
 import github.peu06.v1.api_delivery.model.RoleUsers;
 import github.peu06.v1.api_delivery.repository.ClientsRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ClientsService {
@@ -15,7 +17,16 @@ public class ClientsService {
     }
 
     public Clients create(Clients clients){
+        if (repository.existsByEmail(clients.getEmail())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email já cadastrado");
+        }
+
+        if (repository.existsByCpf(clients.getCpf())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF já cadastrado");
+        }
+
         clients.setRole(RoleUsers.CLIENT);
+
         return repository.save(clients);
     }
 
