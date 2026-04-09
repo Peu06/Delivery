@@ -16,7 +16,7 @@ public abstract class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private Long Id;
 
     @NotBlank
     @Size(max = 100)

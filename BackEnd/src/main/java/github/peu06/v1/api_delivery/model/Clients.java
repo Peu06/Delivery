@@ -20,6 +20,8 @@ import java.util.List;
 @Setter
 public class Clients extends Users{
 
+    private RoleUsers role = RoleUsers.CLIENT;
+
     @NotBlank
     @Size(max = 11)
     @Column(nullable = false, length = 11)
@@ -31,6 +33,6 @@ public class Clients extends Users{
     private String cpf;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "clientes")
+    @OneToMany(mappedBy = "clients")
     private List<Address> enderecos;
 }

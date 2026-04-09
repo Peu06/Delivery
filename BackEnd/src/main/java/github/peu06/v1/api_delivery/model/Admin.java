@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Admin {
+public class Admin extends Users{
 
     private boolean usuarioAdmin = true;
 }
