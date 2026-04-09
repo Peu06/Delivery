@@ -29,7 +29,7 @@ public class Clients extends Users{
 
     @NotBlank
     @Size(max = 11)
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 11, unique = true)
     private String cpf;
 
     @JsonIgnore
