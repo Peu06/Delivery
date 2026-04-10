@@ -26,12 +26,12 @@ public class ClientsController {
         return service.read(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Clients putClients(@PathVariable("id") Long id, @RequestBody Clients clients){
         return service.update(id, clients);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteClients(@PathVariable Long id){
         service.delete(id);
     }
