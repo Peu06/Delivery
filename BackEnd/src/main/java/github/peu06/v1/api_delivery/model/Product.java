@@ -1,19 +1,20 @@
 package github.peu06.v1.api_delivery.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUTOS")
 @NoArgsConstructor
 @Getter
 @Setter
-public class Products {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,12 +22,24 @@ public class Products {
 
     private String nome;
 
-    private String descrição;
+    private String descricao;
 
     private BigDecimal preco;
 
     private String urlImg;
 
     private boolean ativo;
+
+    @JsonManagedReference("product-option")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductOption> option;
+
+    @JsonManagedReference("product-variation")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductVariation> variation;
+
+    @JsonManagedReference("product-group")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OptionGroup> groups;
 
 }

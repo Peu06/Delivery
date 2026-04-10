@@ -1,4 +1,9 @@
 package github.peu06.v1.api_delivery.repository;
 
-public class ProductRepository {
+import github.peu06.v1.api_delivery.model.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
 }
