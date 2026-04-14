@@ -1,4 +1,7 @@
 package github.peu06.v1.api_delivery.repository;
 
-public class OrderRepository {
+import github.peu06.v1.api_delivery.model.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

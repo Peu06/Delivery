@@ -1,10 +1,7 @@
 package github.peu06.v1.api_delivery.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -31,6 +28,10 @@ public class Clients extends Users{
     private String cpf;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "clients")
+    @OneToMany(mappedBy = "clients", cascade = CascadeType.ALL)
     private List<Address> enderecos;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "clients", cascade = CascadeType.ALL)
+    private List<Order> order;
 }
