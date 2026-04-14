@@ -1,12 +1,13 @@
 # 🛒 Delivery_v1
 
-Sistema de e-commerce/delivery desenvolvido como projeto acadêmico, com **frontend em React + Vite + Tailwind** e **backend em Java Spring Boot**.
+Sistema de e-commerce/delivery desenvolvido como projeto acadêmico, com frontend em **React + Vite + Tailwind** e backend em **Java Spring Boot**.
 
 ---
 
 ## 🚀 Funcionalidades
 
 ### 👨‍💻 Admin (Painel de configuração)
+
 - Criar produtos
 - Editar produtos
 - Excluir produtos
@@ -15,7 +16,10 @@ Sistema de e-commerce/delivery desenvolvido como projeto acadêmico, com **front
   - Grupos de opções (ex: extras, molhos)
   - Opções dentro dos grupos
 
+---
+
 ### 🛍️ Produtos
+
 - Nome
 - Descrição
 - Preço base
@@ -27,6 +31,7 @@ Sistema de e-commerce/delivery desenvolvido como projeto acadêmico, com **front
 ## 🧱 Tecnologias
 
 ### Frontend
+
 - React
 - Vite
 - Tailwind CSS
@@ -34,6 +39,7 @@ Sistema de e-commerce/delivery desenvolvido como projeto acadêmico, com **front
 - Fetch API
 
 ### Backend
+
 - Java 17+
 - Spring Boot
 - Spring Data JPA
@@ -44,41 +50,34 @@ Sistema de e-commerce/delivery desenvolvido como projeto acadêmico, com **front
 
 ## ⚙️ Como rodar o projeto
 
----
-
 ### ▶️ Backend (Spring Boot)
 
-Abra o projeto em sua IDE de preferência:
+- Abra o projeto em sua IDE (IntelliJ, Eclipse ou VS Code)
+- Execute a classe principal:
 
-- IntelliJ IDEA
-- Eclipse
-- VS Code (com suporte Java)
-
-Depois execute a classe principal:
-```bash
-Application.java (main)
-```
+ApiDeliveryApplication.java
 
 ---
 
 ### ▶️ Frontend (React + Vite)
 
-```bash id="frontend-pnpm"
-cd FrontEnd
-pnpm install
-pnpm run dev
-```
+- cd FrontEnd
+- pnpm install
+- pnpm run dev
 
 ---
 
-### 🔗 Endpoints principais:
-GET	/products	Listar produtos
-POST	/products	Criar produto
-PUT	/products/{id}	Editar produto
-DELETE	/products/{id}	Remover produto
+## 🔗 Endpoints principais
 
+- GET /products → Listar produtos
+- POST /products → Criar produto
+- PUT /products/{id} → Editar produto
+- DELETE /products/{id} → Remover produto
 
-### 📤 Exemplo de JSON (Produto)
+---
+
+## 📤 Exemplo de JSON (Produto)
+
 ```bash
 {
   "nome": "X-Burger",
@@ -86,7 +85,7 @@ DELETE	/products/{id}	Remover produto
   "preco": 20.00,
   "urlImg": "https://img.com/xburger.png",
   "ativo": true,
-  "variations": [
+  "variation": [
     {
       "nome": "Pequeno",
       "preco": 18.00
@@ -118,17 +117,20 @@ DELETE	/products/{id}	Remover produto
 
 ---
 
-### 🔥 Principais desafios resolvidos
+## 🔥 Principais desafios resolvidos
+
 - Integração Frontend + Backend via REST API
 - Problemas de CORS
 - Serialização de objetos complexos (JPA + JSON)
-- MultipleBagFetchException no Hibernate
-- Atualização automática de lista com estado no React
-- Estrutura de produtos com variações e opções aninhadas
+- MultipleBagFetchException no Hibernate (resolvido com uso de Set)
+- Relacionamentos bidirecionais com @JsonManagedReference / @JsonBackReference
+- Atualização de entidades com listas aninhadas
+- Estrutura de produtos com variações e grupos de opções
 
 ---
 
-### 📌 Melhorias futuras
+## 📌 Melhorias futuras
+
 - 🔐 Autenticação JWT
 - 🛒 Carrinho de compras
 - 💳 Pagamentos (PIX / Mercado Pago)
@@ -136,6 +138,8 @@ DELETE	/products/{id}	Remover produto
 - 📊 Dashboard com métricas
 - 📱 Versão mobile (PWA)
 
-### 📄 Licença
+---
+
+## 📄 Licença
 
 - Projeto acadêmico — sem licença comercial
