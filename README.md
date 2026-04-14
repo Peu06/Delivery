@@ -22,12 +22,6 @@ Sistema de e-commerce/delivery desenvolvido como projeto acadêmico, com **front
 - Imagem
 - Status ativo/inativo
 
-### 🔄 Atualização automática
-- Lista de produtos atualiza automaticamente após:
-  - criação
-  - edição
-  - exclusão
-
 ---
 
 ## 🧱 Tecnologias
@@ -62,7 +56,7 @@ Abra o projeto em sua IDE de preferência:
 
 Depois execute a classe principal:
 ```bash
-ApiDeliveryApplication.java (main)
+Application.java (main)
 ```
 
 ---
