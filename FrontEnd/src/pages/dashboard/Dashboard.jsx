@@ -13,7 +13,7 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar onLogout={handleLogout} />
-      <main className="flex-1 p-6">
+      <main className="flex-1">
         <Outlet /> {/* Conteúdo das rotas filhas vai aqui */}
       </main>
     </div>

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "PRODUTOS")
@@ -30,16 +31,12 @@ public class Product {
 
     private boolean ativo;
 
-    @JsonManagedReference("product-option")
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductOption> option;
-
     @JsonManagedReference("product-variation")
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductVariation> variation;
 
     @JsonManagedReference("product-group")
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OptionGroup> groups;
+    private Set<OptionGroup> groups;
 
 }

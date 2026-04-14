@@ -7,6 +7,8 @@ import github.peu06.v1.api_delivery.model.ProductVariation;
 import github.peu06.v1.api_delivery.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -29,7 +31,6 @@ public class ProductService {
                 if (group.getOptions() != null) {
                     for (ProductOption option : group.getOptions()) {
                         option.setGroup(group);
-                        option.setProduct(product);
                     }
                 }
             }
@@ -58,6 +59,10 @@ public class ProductService {
         return product;
     }
 
+    public List<Product> findAllProducts() {
+        return repository.findAllWithDetails();
+    }
+
     public Product update(Long id, Product updateProduct){
         Product product = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
@@ -68,6 +73,7 @@ public class ProductService {
         product.setUrlImg(updateProduct.getUrlImg());
         product.setAtivo(updateProduct.isAtivo());
 
+        // 🔹 VARIATIONS
         product.getVariation().clear();
 
         if (updateProduct.getVariation() != null) {
@@ -78,17 +84,7 @@ public class ProductService {
             }
         }
 
-        product.getOption().clear();
-
-        if (updateProduct.getOption() != null) {
-            for (ProductOption option : updateProduct.getOption()) {
-                option.setId(null);
-                option.setProduct(product);
-                option.setGroup(null);
-                product.getOption().add(option);
-            }
-        }
-
+        // 🔹 GROUPS + OPTIONS
         product.getGroups().clear();
 
         if (updateProduct.getGroups() != null) {
@@ -100,8 +96,7 @@ public class ProductService {
                 if (group.getOptions() != null) {
                     for (ProductOption option : group.getOptions()) {
                         option.setId(null);
-                        option.setProduct(product);
-                        option.setGroup(group);
+                        option.setGroup(group); // ✅ correto agora
                     }
                 }
 

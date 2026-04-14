@@ -21,8 +21,8 @@ public class OrderController {
         return service.create(order);
     }
 
-    @GetMapping
-    public Order getOrder(Long id){
+    @GetMapping("/{id}")
+    public Order getOrder(@PathVariable Long id){
         return service.read(id);
     }
 }

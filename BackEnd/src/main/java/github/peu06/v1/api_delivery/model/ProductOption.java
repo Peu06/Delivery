@@ -22,10 +22,6 @@ public class ProductOption {
     private String nome;
     private BigDecimal preco;
 
-    @JsonBackReference("product-option")
-    @ManyToOne
-    private Product product;
-
     @JsonBackReference("group-option")
     @ManyToOne
     private OptionGroup group;

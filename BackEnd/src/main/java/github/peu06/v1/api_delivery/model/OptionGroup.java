@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "GRUPO_OPCIONAL")
@@ -31,5 +32,5 @@ public class OptionGroup {
 
     @JsonManagedReference("group-option")
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductOption> options;
+    private Set<ProductOption> options;
 }

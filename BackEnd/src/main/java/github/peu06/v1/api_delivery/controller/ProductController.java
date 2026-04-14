@@ -5,6 +5,8 @@ import github.peu06.v1.api_delivery.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -19,6 +21,11 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public Product postProduct(@RequestBody Product product){
         return service.create(product);
+    }
+
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return service.findAllProducts();
     }
 
     @GetMapping("/{id}")
