@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ShoppingCart } from 'lucide-react';
 
 export function Cards() {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ export function Cards() {
       {products.map((product) => (
         <div
           key={product.id}
-          className="bg-white rounded-2xl shadow-md p-4 w-72 hover:scale-105 transition"
+          className="bg-white rounded-2xl shadow-md p-4 w-72"
         >
           <img
             src={product.urlImg}
@@ -31,9 +32,11 @@ export function Cards() {
               R$ {product.preco}
             </span>
 
-            <button className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600">
-              Pedir
+            <button className="bg-green-500 p-2 rounded-4xl hover:bg-green-700">
+              <ShoppingCart />
             </button>
+
+            
           </div>
         </div>
       ))}
