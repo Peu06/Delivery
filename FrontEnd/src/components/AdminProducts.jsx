@@ -7,75 +7,126 @@ export function AdminProducts({ onCreated }) {
     preco: "",
     urlImg: "",
     ativo: true,
-    variations: [],
+    variation: [],
     groups: []
   });
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
+
+    setProduct((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   }
 
+  // =========================
   // VARIAÇÕES
+  // =========================
   function addVariation() {
-    setProduct({
-      ...product,
-      variations: [...product.variations, { nome: "", preco: "" }]
-    });
+    setProduct((prev) => ({
+      ...prev,
+      variation: [
+        ...prev.variation,
+        { nome: "", preco: "" }
+      ]
+    }));
   }
 
   function updateVariation(index, field, value) {
-    const list = [...product.variations];
-    list[index][field] = value;
-    setProduct({ ...product, variations: list });
-  }
+    setProduct((prev) => {
+      const list = [...prev.variation];
+      list[index] = {
+        ...list[index],
+        [field]: value
+      };
 
-  // GRUPOS
-  function addGroup() {
-    setProduct({
-      ...product,
-      groups: [
-        ...product.groups,
-        { nome: "", minEscolhas: 0, maxEscolhas: 1, options: [] }
-      ]
+      return { ...prev, variation: list };
     });
   }
 
-  function updateGroup(index, field, value) {
-    const list = [...product.groups];
-    list[index][field] = value;
-    setProduct({ ...product, groups: list });
+  // =========================
+  // GRUPOS
+  // =========================
+  function addGroup() {
+    setProduct((prev) => ({
+      ...prev,
+      groups: [
+        ...prev.groups,
+        {
+          nome: "",
+          minEscolhas: 0,
+          maxEscolhas: 1,
+          options: []
+        }
+      ]
+    }));
   }
 
+  function updateGroup(index, field, value) {
+    setProduct((prev) => {
+      const list = [...prev.groups];
+
+      list[index] = {
+        ...list[index],
+        [field]: value
+      };
+
+      return { ...prev, groups: list };
+    });
+  }
+
+  // =========================
   // OPTIONS
+  // =========================
   function addOption(groupIndex) {
-    const list = [...product.groups];
-    list[groupIndex].options.push({ nome: "", preco: "" });
-    setProduct({ ...product, groups: list });
+    setProduct((prev) => {
+      const list = [...prev.groups];
+
+      list[groupIndex].options = [
+        ...list[groupIndex].options,
+        { nome: "", preco: "" }
+      ];
+
+      return { ...prev, groups: list };
+    });
   }
 
   function updateOption(groupIndex, optionIndex, field, value) {
-    const list = [...product.groups];
-    list[groupIndex].options[optionIndex][field] = value;
-    setProduct({ ...product, groups: list });
+    setProduct((prev) => {
+      const list = [...prev.groups];
+
+      list[groupIndex].options[optionIndex] = {
+        ...list[groupIndex].options[optionIndex],
+        [field]: value
+      };
+
+      return { ...prev, groups: list };
+    });
   }
 
+  // =========================
+  // SUBMIT
+  // =========================
   function handleSubmit(e) {
     e.preventDefault();
 
     const formatted = {
       ...product,
       preco: Number(product.preco),
-      variations: product.variations.map(v => ({
-        ...v,
+
+      variation: product.variation.map((v) => ({
+        nome: v.nome,
         preco: Number(v.preco)
       })),
-      groups: product.groups.map(g => ({
-        ...g,
+
+      groups: product.groups.map((g) => ({
+        nome: g.nome,
         minEscolhas: Number(g.minEscolhas),
         maxEscolhas: Number(g.maxEscolhas),
-        options: g.options.map(o => ({
-          ...o,
+
+        options: g.options.map((o) => ({
+          nome: o.nome,
           preco: Number(o.preco)
         }))
       }))
@@ -89,7 +140,7 @@ export function AdminProducts({ onCreated }) {
       body: JSON.stringify(formatted)
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         alert("Produto criado com sucesso!");
 
         setProduct({
@@ -98,25 +149,29 @@ export function AdminProducts({ onCreated }) {
           preco: "",
           urlImg: "",
           ativo: true,
-          variations: [],
+          variation: [],
           groups: []
         });
 
-        if (onCreated) onCreated(); // 🔥 atualiza lista
+        if (onCreated) onCreated();
       })
       .catch((err) => console.error(err));
   }
 
+  // =========================
+  // UI
+  // =========================
   return (
     <div className="flex justify-center mb-8">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-3xl space-y-6"
       >
-        <h1 className="text-2xl font-bold text-center !text-black">
+        <h1 className="text-2xl font-bold text-center text-black">
           Criar Produto
         </h1>
 
+        {/* CAMPOS PRINCIPAIS */}
         <div className="grid gap-3">
           <input name="nome" placeholder="Nome" onChange={handleChange} className="input" />
           <input name="descricao" placeholder="Descrição" onChange={handleChange} className="input" />
@@ -124,31 +179,46 @@ export function AdminProducts({ onCreated }) {
           <input name="urlImg" placeholder="URL da imagem" onChange={handleChange} className="input" />
         </div>
 
-        {/* VARIAÇÕES */}
+        {/* =========================
+            VARIAÇÕES
+        ========================= */}
         <div>
           <h2 className="font-semibold">Variações</h2>
 
-          {product.variations.map((v, i) => (
+          {product.variation.map((v, i) => (
             <div key={i} className="flex gap-2 mb-2">
               <input
                 placeholder="Nome"
-                onChange={(e) => updateVariation(i, "nome", e.target.value)}
+                value={v.nome}
+                onChange={(e) =>
+                  updateVariation(i, "nome", e.target.value)
+                }
                 className="input"
               />
+
               <input
                 placeholder="Preço"
-                onChange={(e) => updateVariation(i, "preco", e.target.value)}
+                value={v.preco}
+                onChange={(e) =>
+                  updateVariation(i, "preco", e.target.value)
+                }
                 className="input"
               />
             </div>
           ))}
 
-          <button type="button" onClick={addVariation} className="btn-secondary">
+          <button
+            type="button"
+            onClick={addVariation}
+            className="btn-secondary"
+          >
             + Variação
           </button>
         </div>
 
-        {/* GRUPOS */}
+        {/* =========================
+            GRUPOS
+        ========================= */}
         <div>
           <h2 className="font-semibold">Grupos</h2>
 
@@ -156,36 +226,49 @@ export function AdminProducts({ onCreated }) {
             <div key={gi} className="border p-3 rounded mb-3 bg-gray-50">
               <input
                 placeholder="Nome grupo"
-                onChange={(e) => updateGroup(gi, "nome", e.target.value)}
+                value={g.nome}
+                onChange={(e) =>
+                  updateGroup(gi, "nome", e.target.value)
+                }
                 className="input mb-2"
               />
 
               <div className="flex gap-2 mb-2">
                 <input
                   placeholder="Min"
-                  onChange={(e) => updateGroup(gi, "minEscolhas", e.target.value)}
+                  value={g.minEscolhas}
+                  onChange={(e) =>
+                    updateGroup(gi, "minEscolhas", e.target.value)
+                  }
                   className="input"
                 />
+
                 <input
                   placeholder="Max"
-                  onChange={(e) => updateGroup(gi, "maxEscolhas", e.target.value)}
+                  value={g.maxEscolhas}
+                  onChange={(e) =>
+                    updateGroup(gi, "maxEscolhas", e.target.value)
+                  }
                   className="input"
                 />
               </div>
 
-              <h3>Opções</h3>
+              <h3 className="font-medium">Opções</h3>
 
               {g.options.map((o, oi) => (
                 <div key={oi} className="flex gap-2 mb-2">
                   <input
                     placeholder="Nome"
+                    value={o.nome}
                     onChange={(e) =>
                       updateOption(gi, oi, "nome", e.target.value)
                     }
                     className="input"
                   />
+
                   <input
                     placeholder="Preço"
+                    value={o.preco}
                     onChange={(e) =>
                       updateOption(gi, oi, "preco", e.target.value)
                     }
@@ -204,11 +287,16 @@ export function AdminProducts({ onCreated }) {
             </div>
           ))}
 
-          <button type="button" onClick={addGroup} className="btn-secondary">
+          <button
+            type="button"
+            onClick={addGroup}
+            className="btn-secondary"
+          >
             + Grupo
           </button>
         </div>
 
+        {/* SUBMIT */}
         <button className="w-full bg-green-500 text-white py-2 rounded-lg">
           Salvar Produto
         </button>

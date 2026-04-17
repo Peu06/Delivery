@@ -8,6 +8,7 @@ import Clientes from './pages/dashboard/Clientes';
 import Configuracoes from './pages/dashboard/Configuracoes';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import LoginSistema from './pages/LoginSistema';
+import Carrinho from './pages/Carrinho';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginSistema />} />
+        <Route path="/cart" element={<Carrinho />} />
 
         <Route 
           path="/dashboard" 

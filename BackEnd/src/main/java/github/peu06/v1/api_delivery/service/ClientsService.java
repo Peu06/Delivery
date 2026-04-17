@@ -35,17 +35,17 @@ public class ClientsService {
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
     }
 
-    public Clients update(Long id, Clients updateAdmin){
+    public Clients update(Long id, Clients updateClient){
         Clients clients = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-        clients.setNome(updateAdmin.getNome());
-        clients.setCpf(updateAdmin.getCpf());
-        clients.setEmail(updateAdmin.getEmail());
-        clients.setTelefone(updateAdmin.getTelefone());
-        clients.setEnderecos(updateAdmin.getEnderecos());
-        if (updateAdmin.getSenha() != null) {
-            clients.setSenha(updateAdmin.getSenha());
+        clients.setNome(updateClient.getNome());
+        clients.setCpf(updateClient.getCpf());
+        clients.setEmail(updateClient.getEmail());
+        clients.setTelefone(updateClient.getTelefone());
+        clients.setEnderecos(updateClient.getEnderecos());
+        if (updateClient.getSenha() != null) {
+            clients.setSenha(updateClient.getSenha());
         }
         clients.setRole(RoleUsers.CLIENT);
 

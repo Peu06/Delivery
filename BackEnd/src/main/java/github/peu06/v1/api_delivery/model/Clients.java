@@ -34,4 +34,7 @@ public class Clients extends Users{
     @JsonIgnore
     @OneToMany(mappedBy = "clients", cascade = CascadeType.ALL)
     private List<Order> order;
+
+    @OneToOne(mappedBy = "clients")
+    private Cart cart;
 }
