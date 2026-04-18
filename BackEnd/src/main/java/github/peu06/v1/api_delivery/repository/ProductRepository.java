@@ -10,9 +10,4 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
-    @EntityGraph(attributePaths = {"variation", "groups", "groups.options"})
-    @Query("SELECT p FROM Product p")
-    List<Product> findAllWithDetails();
-
 }

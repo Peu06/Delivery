@@ -22,44 +22,9 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
-
     private String descricao;
-
+    private String urlImage;
     private BigDecimal preco;
-
-    private String urlImg;
-
-    private boolean ativo;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true) 
-    private Set<ProductVariation> variation;
-
-    @JsonManagedReference("product-group")
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OptionGroup> groups;
-
-
-    @Transient
-    public List<ProductVariation> getVariationsWithDefault() {
-
-        List<ProductVariation> list = new ArrayList<>();
-
-        // 🔥 VARIAÇÃO PADRÃO (virtual)
-        ProductVariation defaultVar = new ProductVariation();
-        defaultVar.setId(0L); // padrão
-        defaultVar.setNome("Padrão");
-        defaultVar.setPreco(this.preco);
-        defaultVar.setProduct(this);
-
-        list.add(defaultVar);
-
-        if (variation != null) {
-            list.addAll(variation);
-        }
-
-        return list;
-    }
+    private boolean isDiponivel;
 }

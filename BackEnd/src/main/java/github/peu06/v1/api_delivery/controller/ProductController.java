@@ -3,6 +3,7 @@ package github.peu06.v1.api_delivery.controller;
 import github.peu06.v1.api_delivery.model.Product;
 import github.peu06.v1.api_delivery.service.ProductService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-
     private final ProductService service;
 
     public ProductController(ProductService service) {
@@ -19,18 +19,19 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Product postProduct(@RequestBody Product product){
+    public Product create(@RequestBody Product product){
         return service.create(product);
-    }
-
-    @GetMapping
-    public List<Product> getAllProducts() {
-        return service.findAllProducts();
     }
 
     @GetMapping("/{id}")
     public Product getProduct(@PathVariable Long id){
-        return service.read(id);
+        return service.readById(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> findAll() {
+        List<Product> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
     @PutMapping("/{id}")

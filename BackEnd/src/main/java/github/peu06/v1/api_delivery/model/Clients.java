@@ -31,10 +31,4 @@ public class Clients extends Users{
     @OneToMany(mappedBy = "clients", cascade = CascadeType.ALL)
     private List<Address> enderecos;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "clients", cascade = CascadeType.ALL)
-    private List<Order> order;
-
-    @OneToOne(mappedBy = "clients")
-    private Cart cart;
 }
